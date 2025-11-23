@@ -50,21 +50,12 @@ class EmailController extends Controller
     {
         $request = Yii::$app->request;
 
-        $fromName = $request->post('fromName');
         $rawTo = $request->post('to');
         $subject = $request->post('subject');
         $body = $request->post('body');
         $rawCc = $request->post('cc');
         $rawReplyTo = $request->post('replyTo');
         $uploadedFiles = UploadedFile::getInstancesByName('attachments');
-
-        if (empty($fromName)) {
-            Yii::$app->response->statusCode = 400;
-            return [
-                'status' => 'error',
-                'message' => "Parameter 'fromName' is required."
-            ];
-        }
 
         $toDecoded = $this->validateJsonEmailArray($rawTo, 'to', true);
         if ($toDecoded === false) return;
@@ -104,7 +95,7 @@ class EmailController extends Controller
 
         try {
             $message = Yii::$app->graphMailer->compose()
-                ->setFrom([$_ENV['OUTLOOK_EMAIL'] => $fromName])
+                ->setFrom($_ENV['OUTLOOK_EMAIL'])
                 ->setTo($toDecoded)
                 ->setSubject($subject)
                 ->setHtmlBody($body);

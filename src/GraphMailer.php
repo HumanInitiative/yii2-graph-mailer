@@ -101,18 +101,6 @@ class GraphMailer extends Component
             }, $emails);
         };
 
-        $fromAddress = $this->email;
-        $fromName = null;
-
-        if (is_array($message->from) && isset($message->from[$fromAddress])) {
-            $fromName = $message->from[$fromAddress];
-        }
-
-        $fromPayload = ['address' => $fromAddress];
-        if ($fromName) {
-            $fromPayload['name'] = $fromName;
-        }
-
         $emailPayload = [
             'message' => [
                 'subject' => $message->subject,
@@ -121,7 +109,7 @@ class GraphMailer extends Component
                     'content' => $message->htmlBody ?? $message->textBody ?? '',
                 ],
                 'toRecipients' => $formatRecipients($message->to),
-                'from' => ['emailAddress' => $fromPayload],
+                'from' => ['emailAddress' => ['address' => $this->email]],
             ],
         ];
 
