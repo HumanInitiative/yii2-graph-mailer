@@ -78,9 +78,22 @@ Yii::$app->graphMailer->compose()
 	->setFrom($_ENV['OUTLOOK_EMAIL'])
         ->setTo('test@test.com')
         ->setSubject('test')
-        ->setHtmlBody('<p>test pengiriman email via graph api</p>');
-	//->setCc('cc@test.com');
-        //->setReplyTo('replyTo@test.com');
-        //->attach($file->tempName, ['fileName' => $file->name]);
+        ->setHtmlBody('<p>test pengiriman email via graph api</p>')
+		//->setCc('cc@test.com')
+        //->setReplyTo('replyTo@test.com')
+        //->attach($file->tempName, ['fileName' => $file->name])
         ->send();
+```
+
+atau compose dari file html
+
+```
+Yii::$app->mailer->compose('file-html', ['model'=>$model])
+        ->setTo('test@test.com')
+        ->setSubject('test')
+		//->setCc('cc@test.com')
+        //->setReplyTo('replyTo@test.com')
+        //->attach($file->tempName, ['fileName' => $file->name])
+        ->send();
+
 ```
