@@ -1,0 +1,28 @@
+{
+    "name": "humaninitiative/yii2-graph-mailer",
+    "description": "A Yii2 component to send emails using Microsoft Graph Mailer.",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "microsoft", "graph", "mailer", "outlook", "office365"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Muhamad Arifin",
+            "email": "m.arifinnn@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "yiisoft/yii2": "^2.0.45",
+        "humaninitiative/msgraph": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "humaninitiative\\graph\\mailer\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
