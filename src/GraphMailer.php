@@ -180,7 +180,7 @@ class GraphMailer extends Component
                     'content' => $message->htmlBody ?? '',
                 ],
                 'toRecipients' => $formatRecipients($message->to),
-                'from' => ['emailAddress' => ['address' => $this->email]],
+                'from' => ['emailAddress' => ['address' => $message->from ?? $this->email]],
             ],
         ];
 

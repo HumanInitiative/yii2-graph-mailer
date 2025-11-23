@@ -50,6 +50,7 @@ class EmailController extends Controller
     {
         $request = Yii::$app->request;
 
+        $from = $request->post('from');
         $rawTo = $request->post('to');
         $subject = $request->post('subject');
         $body = $request->post('body');
@@ -95,7 +96,7 @@ class EmailController extends Controller
 
         try {
             $message = Yii::$app->graphMailer->compose()
-                ->setFrom($_ENV['OUTLOOK_EMAIL'])
+                ->setFrom($from)
                 ->setTo($toDecoded)
                 ->setSubject($subject)
                 ->setHtmlBody($body);
