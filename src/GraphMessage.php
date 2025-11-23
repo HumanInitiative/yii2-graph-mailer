@@ -12,7 +12,6 @@ class GraphMessage extends BaseObject
     public $bcc = [];
     public $replyTo = [];
     public $subject;
-    public $textBody;
     public $htmlBody;
     public $attachments = [];
 
@@ -99,18 +98,6 @@ class GraphMessage extends BaseObject
     public function setSubject($subject)
     {
         $this->subject = $subject;
-        return $this;
-    }
-    
-    /**
-     * Set the plain text body of the message
-     *
-     * @param string $text The plain text body of the message
-     * @return static
-     */
-    public function setTextBody($text)
-    {
-        $this->textBody = $text;
         return $this;
     }
     

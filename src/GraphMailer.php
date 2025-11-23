@@ -20,8 +20,6 @@ class GraphMailer extends Component
 
     public $htmlLayout = 'layouts/html';
 
-    public $textLayout = 'layouts/text';
-
     private $_accessToken;
 
     /**
@@ -90,16 +88,14 @@ class GraphMailer extends Component
             $this->renderContent($message, $view, $params);
         }
 
-        Yii::configure($message, $params);
         return $message;
     }
 
     /**
      * Renders the content of a view and sets it to the message.
      *
-     * This function will first render the HTML view of the specified view,
-     * and then render the text view of the specified view. If the
-     * htmlLayout or textLayout properties are set, it will
+     * This function will render the HTML view of the specified view. If the
+     * htmlLayout properties are set, it will
      * render the content of the view inside the layout and set
      * the rendered content to the message.
      *
@@ -124,17 +120,6 @@ class GraphMailer extends Component
             }
             $message->setHtmlBody($htmlContent);
         }
-
-        // Render Text Body
-        $textViewFile = $this->findViewFile($view, 'text');
-        if ($textViewFile !== null) {
-            $textContent = $viewComponent->renderFile($textViewFile, $params);
-            if ($this->textLayout) {
-                $layoutFile = Yii::getAlias($this->viewPath) . '/' . $this->textLayout . '.php';
-                $textContent = $viewComponent->renderFile($layoutFile, ['content' => $textContent, 'message' => $message], $this);
-            }
-            $message->setTextBody($textContent);
-        }
     }
 
     /**
@@ -143,7 +128,7 @@ class GraphMailer extends Component
      * If the view file is found, the path to the view file is returned, otherwise null is returned.
      *
      * @param string $view The name of the view to find.
-     * @param string $type The type of the view to find (e.g. 'html' or 'text').
+     * @param string $type The type of the view to find (e.g. 'html').
      * @return string|null The path to the view file, or null if not found.
      */
     protected function findViewFile($view, $type)
@@ -191,8 +176,8 @@ class GraphMailer extends Component
             'message' => [
                 'subject' => $message->subject,
                 'body' => [
-                    'contentType' => !empty($message->htmlBody) ? 'HTML' : 'Text',
-                    'content' => $message->htmlBody ?? $message->textBody ?? '',
+                    'contentType' => 'HTML',
+                    'content' => $message->htmlBody ?? '',
                 ],
                 'toRecipients' => $formatRecipients($message->to),
                 'from' => ['emailAddress' => ['address' => $this->email]],
