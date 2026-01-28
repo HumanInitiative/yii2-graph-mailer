@@ -88,7 +88,7 @@ Yii::$app->graphMailer->compose()
 atau compose dari file html
 
 ```
-Yii::$app->mailer->compose('file-html', ['model'=>$model])
+Yii::$app->graphMailer->compose('file-html', ['model'=>$model])
 	->setFrom($_ENV['OUTLOOK_EMAIL'])
         ->setTo('test@test.com')
         ->setSubject('test')
