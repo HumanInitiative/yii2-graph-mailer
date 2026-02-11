@@ -12,6 +12,11 @@ use yii\web\UploadedFile;
 class EmailController extends Controller
 {
     /**
+     * @var string the default reply-to email address
+     */
+    public $defaultReplyTo;
+
+    /**
      * Specify the behaviors for this controller.
      *
      * @return array behaviors
@@ -55,7 +60,7 @@ class EmailController extends Controller
         $subject = $request->post('subject');
         $body = $request->post('body');
         $rawCc = $request->post('cc');
-        $rawReplyTo = $request->post('replyTo');
+        $rawReplyTo = $request->post('replyTo') ?: $this->defaultReplyTo;
         $uploadedFiles = UploadedFile::getInstancesByName('attachments');
 
         $toDecoded = $this->validateJsonEmailArray($rawTo, 'to', true);
